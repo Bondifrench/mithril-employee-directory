@@ -1,23 +1,23 @@
 var Header = {
-	view: function(ctrl, options) {
+	view: function(ctrl, args) {
 		return m('header.bar.bar-nav', [
 			m('a', {
 				href: window.location.pathname,
-				class: 'icon icon-left-nav pull-left' + (options.back ? '' : ' hidden')
+				class: 'icon icon-left-nav pull-left' + (args.back ? '' : ' hidden')
 			}),
-			m('h1.title', options.text)
+			m('h1.title', args.text)
 
 		])
 	}
 };
 
 var SearchBar = {
-	controller: function(options) {
+	controller: function(args) {
 		var ctrl = this;
 		ctrl.searchKey = m.prop('');
 		ctrl.searchHandler = function(event) {
 			ctrl.searchKey(event.target.value);
-			options.searchHandler(event.target.value);
+			args.searchHandler(event.target.value);
 		};
 	},
 	view: function(ctrl) {
@@ -32,27 +32,27 @@ var SearchBar = {
 };
 
 var EmployeeListItem = {
-	view: function(ctrl, options) {
+	view: function(ctrl, args) {
 		return m('li.table-view-cell.media', [
 			m('a', {
-				href: window.location.href + 'employees/' + options.employee.id
+				href: window.location.href + 'employees/' + args.employee.id
 			}, [
 				m('img.media-object.small.pull-left', {
-					src: 'pics/' + options.employee.firstName + '_' + options.employee.lastName + '.jpg'
+					src: 'pics/' + args.employee.firstName + '_' + args.employee.lastName + '.jpg'
 				}),
 
-				m('span', options.employee.firstName),
+				m('span', args.employee.firstName),
 				m('span', ' '),
-				m('span', options.employee.lastName),
-				m('p', options.employee.title)
+				m('span', args.employee.lastName),
+				m('p', args.employee.title)
 			])
 		])
 	}
 };
 
 var EmployeeList = {
-	view: function(ctrl, options) {
-		var items = options.employees.map(function(employee) {
+	view: function(ctrl, args) {
+		var items = args.employees.map(function(employee) {
 			return m.component(EmployeeListItem, {
 				key: employee.id,
 				employee: employee
@@ -63,18 +63,18 @@ var EmployeeList = {
 }
 
 var HomePage = {
-	controller: function(options) {
+	controller: function(args) {
 		var ctrl = this;
 		ctrl.employees = m.prop([]);
 		ctrl.searchHandler = function(key) {
-			options.service.findByName(key).then(function(result) {
+			args.service.findByName(key).then(function(result) {
 				// ctrl.searchKey(key); <--- see line 58 of https://github.com/ccoenraets/react-employee-directory/blob/master/iteration4/js/app.js
 				ctrl.employees(result);
 			})
 		}
 
 	},
-	view: function(ctrl, options) {
+	view: function(ctrl, args) {
 		return m('div', [
 			m.component(Header, {
 				text: 'Employee Directory',
@@ -93,14 +93,14 @@ var HomePage = {
 }
 
 var EmployeePage = {
-	controller: function(options) {
+	controller: function(args) {
 		var ctrl = this;
 		ctrl.employee = m.prop({});
-		options.service.findById(m.route.param('Id')).then(function(result) {
+		args.service.findById(m.route.param('Id')).then(function(result) {
 			ctrl.employee(result)
 		})
 	},
-	view: function(ctrl, options) {
+	view: function(ctrl, args) {
 		return m('div', [
 			m.component(Header, {
 				text: 'Employee Details',

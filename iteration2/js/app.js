@@ -1,6 +1,6 @@
 var Header = {
-	view: function(ctrl, options) {
-		return m('h1.title', options.text);
+	view: function(ctrl, args) {
+		return m('h1.title', args.text);
 	}
 };
 
@@ -11,21 +11,21 @@ var SearchBar = {
 };
 
 var EmployeeListItem = {
-	view: function(ctrl, options) {
+	view: function(ctrl, args) {
 		return m('li', [
 			m('a', {
-				href: '#employees/' + options.employee.id
+				href: '#employees/' + args.employee.id
 			}, [
-				m('span', options.employee.firstName),
-				m('span', options.employee.lastName)
+				m('span', args.employee.firstName),
+				m('span', args.employee.lastName)
 			])
 		])
 	}
 };
 
 var EmployeeList = {
-	view: function(ctrl, options) {
-		var items = options.employees.map(function(employee) {
+	view: function(ctrl, args) {
+		var items = args.employees.map(function(employee) {
 			return m.component(EmployeeListItem, {
 				key: employee.id,
 				employee: employee

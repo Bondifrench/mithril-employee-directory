@@ -1,6 +1,6 @@
 var Header = {
-	view: function (ctrl, options) {
-		return m('h1.title', options.text);
+	view: function (ctrl, args) {
+		return m('h1.title', args.text);
 	}
 };
 

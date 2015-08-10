@@ -146,7 +146,7 @@ var EmployeePage = {
 };
 
 var App = {
-	controller: function (args) {
+	controller: function(args) {
 		var ctrl = this;
 		ctrl.searchKey = m.prop('');
 		ctrl.employees = m.prop([]);
@@ -155,13 +155,19 @@ var App = {
 			employeeService.findByName(searchKey).then(function(employees) {
 				ctrl.employees(employees);
 				ctrl.searchKey(searchKey);
-				ctrl.page(m.component(HomePage, {searchKey: ctrl.searchKey(), searchHandler: ctrl.searchHandler, employees: ctrl.employees()}))
+				ctrl.page(m.component(HomePage, {
+					searchKey: ctrl.searchKey(),
+					searchHandler: ctrl.searchHandler,
+					employees: ctrl.employees()
+				}))
 			})
 		}
 	},
-	view: function (ctrl, args) {
-		if (!ctrl.page()) {ctrl.searchHandler('')};
-		return ctrl.page();
+	view: function(ctrl, args) {
+		if (ctrl.page() ? ) {
+			ctrl.searchHandler('')
+		};
+		return ctrl.page()
 	}
 
 };

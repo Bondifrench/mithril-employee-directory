@@ -7,9 +7,9 @@ Inspired by what Jonny Buchanan (@insin) did for [large datasets](https://insin.
 
 The focus of this tutorial will be to highlight the similarities and differences between React and Mithril, when developing this sample application.
 
-*No JSX, no tools, only javascript
-*No templates: Components are the building blocks. By keeping the markup and the corresponding UI logic together, you have the full power of Javascript to express the UI.
-*Virtual DOM. In Mithril, rendering a component means creating a lightweight description of the component UI. Mithril diffs this new description with the old one (if any), and generates a minimal set of changes to apply to the DOM.
+* No JSX, no tools, only javascript
+* No templates: Components are the building blocks. By keeping the markup and the corresponding UI logic together, you have the full power of Javascript to express the UI.
+* Virtual DOM. In Mithril, rendering a component means creating a lightweight description of the component UI. Mithril diffs this new description with the old one (if any), and generates a minimal set of changes to apply to the DOM.
 
 #The Sample App#
 

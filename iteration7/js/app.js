@@ -2,7 +2,7 @@ var Header = {
 	view: function(ctrl, args) {
 		return m('header.bar.bar-nav', [
 			m('a', {
-				href: window.location.pathname,
+				config: m.route,
 				class: 'icon icon-left-nav pull-left' + (args.back ? '' : ' hidden')
 			}),
 			m('h1.title', args.text)
@@ -35,7 +35,8 @@ var EmployeeListItem = {
 	view: function(ctrl, args) {
 		return m('li.table-view-cell.media', [
 			m('a', {
-				href: window.location.href + 'employees/' + args.employee.id
+				config: m.route,
+				href: '/employees/' + args.employee.id
 			}, [
 				m('img.media-object.small.pull-left', {
 					src: 'pics/' + args.employee.firstName + '_' + args.employee.lastName + '.jpg'

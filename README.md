@@ -1,4 +1,4 @@
-#Sample Mobile Application with Mithril and Cordova#
+# Sample Mobile Application with Mithril and Cordova
 
 [Mithril](mithril.js.org) is my favorite Javascript framework. It has a simple API, it's lightweight, it's very fast and it's just Javascript.
 I believe it deserves a few more tutorials and sample applications to illustrate how great it is.
@@ -11,38 +11,38 @@ The focus of this tutorial will be to highlight the similarities and differences
 * No templates: Components are the building blocks. By keeping the markup and the corresponding UI logic together, you have the full power of Javascript to express the UI.
 * Virtual DOM. In Mithril, rendering a component means creating a lightweight description of the component UI. Mithril diffs this new description with the old one (if any), and generates a minimal set of changes to apply to the DOM.
 
-#The Sample App#
+## Introduction
 
-As @ccoenraets says, there is nothing like building an app to get familiar with a new language or framework
+As [@ccoenraets](https://twitter.com/ccoenraets) says, there is nothing like building an app to get familiar with a new language or framework. “App” is the application container that will transition pages in and out of the UI. Only one page is displayed at any given time.
 
-“App” is the application container that will transition pages in and out of the UI. Only one page is displayed at any given time.
-
-Source Code
 
 In this article, we will build the application going through several iterations, from a simple static prototype to the final product. The source code for the application, including the different iterations and a Cordova version, is available in [this repository](https://github.com/Bondifrench/mithril-employee-directory).
-
 If you plan to run the application locally, you need to load it from a local web server, not from the file system
 
-###Iteration 1: Static Version
+## Iteration 1: Static Version
 
 In this first version, we create and render the HomePage component with some hardcoded (static) sample data.
 
 [View source](https://github.com/Bondifrench/mithril-employee-directory/blob/master/iteration1/js/app.js) | [Run it](http://bondifrench.github.io/mithril-employee-directory/iteration1/)
 
-Code Highlights:
+**Code Highlights:**
 
-Creating components is easy: You use React.createClass(), implement the view() function, and return the UI description.
+We create 3 mithril components for our website: Header, SearchBar, and EmployeeList.
+
+Creating components is easy: You create a JavaScript object with a key called 'view'. This key is a function that returns the UI description.
 The element returned by the view function is not an actual DOM node: it’s a description of the UI that will be diffed with the current description to perform the minimum set of changes to the DOM.
-If you like JSX and would like the same syntax when using Mithril, there is MSX. MSX is optional:
 
-Composing components is easy: everything is a function in Mithril, You can use a component created using React.createClass() as a tag in JSX. For example, HomePage is made of three other components: Header, SearchBar, and EmployeeList.
-###Iteration 2: Data Flow
+Using a component is done with the m.component() function - `m.component(EmployeeList)`. For example, HomePage is made of three other components: Header, SearchBar, and EmployeeList.
+
+Side Note: If you don't like the sytax of `m('input[type=search]')` you can use [MSX](https://github.com/insin/msx) (which is similar to [JSX](https://facebook.github.io/jsx/) in React).
+
+## Iteration 2: Data Flow
 
 In this second version, we define an array of employees in the HomePage component, and we make the data flow down the component hierarchy to EmployeeList and EmployeeListItem. In this version, the list of employees is hardcoded: we’ll work with dynamic data in iteration 4.
 
 [View source](https://github.com/Bondifrench/mithril-employee-directory/blob/master/iteration2/js/app.js) | [Run it](http://bondifrench.github.io/mithril-employee-directory/iteration2/)
 
-Code Highlights:
+**Code Highlights:**
 
 In JSX, you can add attributes to your custom component tags to pass properties to the component instance.
 
@@ -65,24 +65,27 @@ var EmployeeList = {
 }
 ```
 The key attribute (like in EmployeeListItem above) is used to uniquely identify an instance of a component (useful in the diff process).
-###Iteration 3: Inverse Data Flow
+
+## Iteration 3: Inverse Data Flow
 
 In the previous version, the data flew down the component hierarchy from HomePage to EmployeeListItem. In this version, we make data (the search key to be specific) flow upstream, from the SearchBar to the HomePage where it is used to find the corresponding employees.
 
 [View source](https://github.com/Bondifrench/mithril-employee-directory/blob/master/iteration3/js/app.js) | [Run it](http://bondifrench.github.io/mithril-employee-directory/iteration3/)
 
-Code Highlights:
+**Code Highlights:**
+
 In this version, the inverse data flow is implemented by providing the child (SearchBar) with a handler to call back the parent (HomePage) when the search key value changes.
 
 
 <SearchBar searchHandler={this.searchHandler}/>
-###Iteration 4: Async Data and State
+
+## Iteration 4: Async Data and State
 
 In this version, we implement employee search using an async service. In this sample app, we use a mock in-memory service (defined in data.js) that uses promises so you can easily replace the implementation with Ajax calls. We keep track of the search key and the list of employees in the HomePage state.
 
 [View source](https://github.com/Bondifrench/mithril-employee-directory/blob/master/iteration4/js/app.js) | [Run it](http://bondifrench.github.io/mithril-employee-directory/iteration4/)
 
-Code Highlights:
+**Code Highlights:**
 
 The state (this.state) is private to the component and is changed using this.setState().
 The UI is automatically updated when the user types a new value in SearchBar. This is because when the state of a React component is changed, the component automatically re-renders itself (by executing its render() function).
@@ -93,32 +96,38 @@ In this version, we add an employee details page. Because the application now ha
 
 [View source](https://github.com/Bondifrench/mithril-employee-directory/blob/master/iteration5/js/app.js) | [Run it](http://bondifrench.github.io/mithril-employee-directory/iteration5/)
 
-Code Highlights:
+**Code Highlights:**
+
 There are many options to implement routing. Some routing libraries are specific to React (check out react-router), but you can also use other existing routing libraries. Because the routing requirements of this sample app are very simple, I used a simple script (router.js) that I have been using in other sample apps.
 
 componentDidMount() is called when a component is rendered.
-###Iteration 6: Styling
+
+## Iteration 6: Styling
 
 Time to make the app look good. In this version, we use the Ratchet CSS library to provide the app with a mobile skin.
 
 [View source](https://github.com/Bondifrench/mithril-employee-directory/blob/master/iteration6/js/app.js) | [Run it](http://bondifrench.github.io/mithril-employee-directory/iteration6)
 
-Code Highlights:
+**Code Highlights:**
 
 Notice the use of className instead of class
-###Iteration 7: Maintaining State
+
+## Iteration 7: Maintaining State
 
 If you run iteration 6, you’ll notice that when you navigate back to HomePage from EmployeePage, HomePage has lost its state (search key and employee list). In this version, we fix this problem and make sure the state is preserved.
 
 [View source](https://github.com/Bondifrench/mithril-employee-directory/blob/master/iteration7/js/app.js) | [Run it](http://bondifrench.github.io/mithril-employee-directory/iteration7)
 
-Code Highlights:
+**Code Highlights:**
 
 To keep track of the state, we introduce a new parent container (App) that maintains the state (searchKey and employee list) of the Home page and reloads it when the user navigates back to the Home Page.
-###Iteration 8: Adding animations
 
-###Running in Cordova
+## Iteration 8: Adding animations
 
-The react-cordova folder in the repository provides a preconfigured Cordova project for the React version of the Employee Directory application.
+Coming soon!
+
+## Iteration 9: Running in Cordova
+
+Coming soon!
 
 

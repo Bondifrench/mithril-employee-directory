@@ -29,6 +29,10 @@ In this first version, we create and render the HomePage component with some har
 
 We create 3 mithril components for our website: Header, SearchBar, and EmployeeList.
 
+There are two ways to using a component: **to be developped**
+
+Using a component is done with the m.component() function - `m.component(EmployeeList)`. 
+
 Creating components is easy: you create a JavaScript object with a key called 'view'. 
 
 ```Javascript
@@ -45,9 +49,7 @@ var MyComponent = {
 
 This `view` is a function that returns the UI description. The element returned by the view function is not an actual DOM node: it’s a description of the UI that will be diffed with the current description to perform the minimum set of changes to the DOM.
 
-There are two ways to using a component: **to be developped**
-
-Using a component is done with the m.component() function - `m.component(EmployeeList)`. For example, HomePage is made of three other components: Header, SearchBar, and EmployeeList.
+For example, HomePage is made of three other components: Header, SearchBar, and EmployeeList.
 
 Side Note: If you don't like the syntax of `m('input[type=search]')` you can use [MSX](https://github.com/insin/msx) (which is similar to [JSX](https://facebook.github.io/jsx/) in React).
 
@@ -158,6 +160,7 @@ Coming soon!
 ##Additional resources:
 
 My other tutorial using Mithril: [Mithril trader](https://github.com/Bondifrench/mithril-trader)
+My Sublime package for easy autocompletion of most Mithril methods in Sublime Text: [Mithrilizer](https://github.com/Bondifrench/Mithrilizer)
 
 Other tutorials on Mithril by Gilbert @mindeavor [here](http://gilbert.ghost.io/mithril-js-tutorial-1/) and [here](http://gilbert.ghost.io/mithril-js-tutorial-2/)
 
@@ -169,4 +172,4 @@ Two open-source non-trivial applications using Mithril in production:
 
 [Here](http://tobyzerner.com/mithril/) you can read on how Toby Zerner made the transition from Ember.js to Mithril
 
-
+Further resources can be found on the Mithril [wiki](https://github.com/lhorie/mithril.js/wiki)

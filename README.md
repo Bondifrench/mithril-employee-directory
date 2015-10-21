@@ -29,7 +29,7 @@ In this first version, we create and render the HomePage component with some har
 
 We create 3 mithril components for our website: Header, SearchBar, and EmployeeList.
 
-Creating components is easy: You create a JavaScript object with a key called 'view'. 
+Creating components is easy: you create a JavaScript object with a key called 'view'. 
 
 ```Javascript
 var MyComponent = {
@@ -45,9 +45,8 @@ var MyComponent = {
 
 This `view` is a function that returns the UI description. The element returned by the view function is not an actual DOM node: it’s a description of the UI that will be diffed with the current description to perform the minimum set of changes to the DOM.
 
-There are two ways to using a component:
-- 
-- 
+There are two ways to using a component: **to be developped**
+
 Using a component is done with the m.component() function - `m.component(EmployeeList)`. For example, HomePage is made of three other components: Header, SearchBar, and EmployeeList.
 
 Side Note: If you don't like the syntax of `m('input[type=search]')` you can use [MSX](https://github.com/insin/msx) (which is similar to [JSX](https://facebook.github.io/jsx/) in React).

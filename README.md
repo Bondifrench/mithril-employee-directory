@@ -159,7 +159,7 @@ Coming soon!
 
 ##Additional resources:
 
-My other tutorial using Mithril: [Mithril trader](https://github.com/Bondifrench/mithril-trader)
+My other tutorial using Mithril: [Mithril trader](https://github.com/Bondifrench/mithril-trader)  
 My Sublime package for easy autocompletion of most Mithril methods in Sublime Text: [Mithrilizer](https://github.com/Bondifrench/Mithrilizer)
 
 Other tutorials on Mithril by Gilbert @mindeavor [here](http://gilbert.ghost.io/mithril-js-tutorial-1/) and [here](http://gilbert.ghost.io/mithril-js-tutorial-2/)

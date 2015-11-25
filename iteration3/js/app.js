@@ -20,7 +20,7 @@ var SearchBar = {
 		// 	args.searchHandler(e.target.value);
 		// }
 		// return {
-		// 	searchKey: m.prop(''),
+		// 	searchKey: searchKey,
 		// 	searchHandler: searchHandler
 		// }
 

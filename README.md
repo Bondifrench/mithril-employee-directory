@@ -18,7 +18,6 @@ As [@ccoenraets](https://twitter.com/ccoenraets) says, there is nothing like bui
 
 In this article, we will build the application going through several iterations, from a simple static prototype to the final product. The source code for the application, including the different iterations and a Cordova version, is available in [this repository](https://github.com/Bondifrench/mithril-employee-directory).
 
-
 ## Iteration 1: Static Version
 
 In this first version, we create and render the HomePage component with some hardcoded (static) sample data.
@@ -27,31 +26,34 @@ In this first version, we create and render the HomePage component with some har
 
 **Code Highlights:**
 
-We create 3 mithril components for our website: Header, SearchBar, and EmployeeList.
+We create 3 components for our App: a `Header`, a `SearchBar`, and an `EmployeeList`.
 
-There are two ways to using a component: **to be developped**
-
-Using a component is done with the m.component() function - `m.component(EmployeeList)`. 
-
-Creating components is easy: you create a JavaScript object with a key called 'view'. 
+Creating components is easy: you create a JavaScript object with a key called 'view': 
 
 ```Javascript
 var MyComponent = {
 	//the controller is optional
-    controller: function(data) {
-        return {greeting: "Hello"}
+    controller: function() {
+    	return {
+    		greeting: "Hello"
+    		};
     },
     view: function(ctrl) {
-        return m("h1", ctrl.greeting)
+        return m("h1", ctrl.greeting);
     }
 }
+
+m.mount(document.body, MyComponent);
 ```
+This `view` is a function that returns the UI description. The element returned by the view function is not an actual DOM node: it’s a description of the UI that will be diffed with the current description to perform the minimum set of changes to the DOM. To actually render the view, we use here `m.mount()`
 
-This `view` is a function that returns the UI description. The element returned by the view function is not an actual DOM node: it’s a description of the UI that will be diffed with the current description to perform the minimum set of changes to the DOM.
-
-For example, HomePage is made of three other components: Header, SearchBar, and EmployeeList.
+Using a component can be done in two ways:  
+- either by referring to it directly if it is a static component, like `SearchBar` or `EmployeeList` in the source code of Iteration 1
+- or with the `m.component()` function, like in the following example: `m.component(Header, {text: 'Employee Directory'})`. Its first argument is the name of the component, the second is a plain javascript object which contains what you want to pass down.
 
 Side Note: If you don't like the syntax of `m('input[type=search]')` you can use [MSX](https://github.com/insin/msx) (which is similar to [JSX](https://facebook.github.io/jsx/) in React).
+
+Another side note: the default of `m('')` is a div, so you can ommit `div` if you want.
 
 ## Iteration 2: Data Flow
 
@@ -83,6 +85,15 @@ var EmployeeList = {
 ```
 The key attribute (like in EmployeeListItem above) is used to uniquely identify an instance of a component (useful in the diff process).
 
+Unlike React, which can have some surprising [behaviours]http://www.bennadel.com/blog/2880-a-quick-look-at-rendering-white-space-using-jsx-in-reactjs.htm) when translating JSX to HTML, there is no whitespace created by a `m()` function so if you render the following
+```Javascript
+m('span', args.employee.firstName),
+m('span', args.employee.lastName)
+```
+Unless you have inserted a whitespace in your strings, the first name won't be separated from the last name. 
+Some might prefer with, some without, I prefer without because I like the concept of pure functions, m() is to create a virtual DOM element, with no side effects
+
+
 ## Iteration 3: Inverse Data Flow
 
 In the previous version, the data flew down the component hierarchy from HomePage to EmployeeListItem. In this version, we make data (the search key to be specific) flow upstream, from the SearchBar to the HomePage where it is used to find the corresponding employees.
@@ -93,9 +104,9 @@ In the previous version, the data flew down the component hierarchy from HomePag
 
 In this version, the inverse data flow is implemented by providing the child (SearchBar) with a handler to call back the parent (HomePage) when the search key value changes.
 
-m.component(SearchBar, {searchHandler: })
-<SearchBar searchHandler={this.searchHandler}/>
-
+```Javascript
+m.component(SearchBar, {searchHandler: ctrl.searchHandler })
+```
 ## Iteration 4: Async Data and State
 
 In this version, we implement employee search using an async service. In this sample app, we use a mock in-memory service (defined in data.js) that uses promises so you can easily replace the implementation with Ajax calls. We keep track of the search key and the list of employees in the HomePage state.
@@ -127,6 +138,7 @@ componentDidMount() is called when a component is rendered.
 ## Iteration 6: Styling
 
 Time to make the app look good. 
+In Mithril, we can use CSS selectors to specify attributes. We can aslo use the `.` syntax to add CSS classes and the `#` to add an id. 
 In this version, we use the Ratchet CSS library to provide the app with a mobile skin.
 
 [View source](https://github.com/Bondifrench/mithril-employee-directory/blob/master/iteration6/js/app.js) | [Run it](http://bondifrench.github.io/mithril-employee-directory/iteration6)

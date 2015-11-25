@@ -23,8 +23,8 @@ var HomePage = {
 	view: function () {
 		return m('div', [
 			m.component(Header, {text: 'Employee Directory'}),
-			m.component(SearchBar),
-			m.component(EmployeeList)
+			SearchBar,
+			EmployeeList
 			])
 	}
 }

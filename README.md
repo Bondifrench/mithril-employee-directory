@@ -86,7 +86,7 @@ m.component(EmployeeList, {employees: employees})
 ```
 
 Properties passed by the parent are available in the child through the second argument of the view, called here **args**. For example `EmployeeList` can access the list of employees provided by `HomePage` in **args.employees**.
-In a list component (like `EmployeeList`), it’s a common pattern to programmatically create an array of child components (like EmployeeListItem) and include that array in the Mithril description of the component.
+In a list component (like `EmployeeList`), it’s a common pattern to programmatically create an array of child components (like `EmployeeListItem`) and include that array in the Mithril description of the component.
 
 ```Javascript
 var EmployeeList = {
@@ -113,17 +113,43 @@ Some might prefer with, some without, I prefer without because I like the concep
 
 ## Iteration 3: Inverse Data Flow
 
-In the previous version, the data flew down the component hierarchy from HomePage to EmployeeListItem. In this version, we make data (the search key to be specific) flow upstream, from the SearchBar to the HomePage where it is used to find the corresponding employees.
+In the previous version, the data flew down the component hierarchy from `HomePage` to `EmployeeListItem`. In this version, we make data (the search key to be specific) flow upstream, from the `SearchBar` to the `HomePage` where it is used to find the corresponding employees.
 
 [View source](https://github.com/Bondifrench/mithril-employee-directory/blob/master/iteration3/js/app.js) | [Run it](http://bondifrench.github.io/mithril-employee-directory/iteration3/)
 
 **Code Highlights:**
 
-In this version, the inverse data flow is implemented by providing the child (SearchBar) with a handler to call back the parent (HomePage) when the search key value changes.
+In this version, the inverse data flow is implemented by providing the child (`SearchBar`) with a handler to call back the parent (`HomePage`) when the search key value changes.
 
 ```Javascript
 m.component(SearchBar, {searchHandler: ctrl.searchHandler })
 ```
+
+Let's examine the `SearchBar` component more carefully.
+**First**, Mithril has a very convenient getter/setter in `m.prop()` which is easy to understand:
+
+```Javascript
+//define a getter-setter with initial value `John`
+var name = m.prop("John");
+
+//read the value
+var a = name(); //a == "John"
+
+//set the value to `Mary`
+name("Mary"); //Mary
+
+//read the value
+var b = name(); //b == "Mary"
+```
+
+**Second**, in Mithril we put all methods, which are to interact with a model in the `controller`, ie a property of the component, which can be accessed throught the first argument in the `view` function. The controller is the glue between the UI layer (the `view`) and the data layer (the `model`), with Mithril separation of concerns is encouraged and it thrives to adhere to the **MVC** paradigm. 
+
+**Third**, Mithril is very flexible in how you can implement the controller. From [Line 9](https://github.com/Bondifrench/mithril-employee-directory/blob/master/iteration3/js/app.js#L9) you will see 3 different implementations of the controller, which have the same results.
+- You can use the pattern `var ctrl = this` and then attach every property and method to `ctrl`, so it is explicit what you attach to it, 
+- or you can use `this` directly, but then you have to use `bind` to create bound functions, 
+- or you can use the factory function pattern where you return an object.
+I personnally prefer to use the first pattern as it makes it explicit that I attach it to the controller, but Javascript is flexible so the choice is yours.
+
 ## Iteration 4: Async Data and State
 
 In this version, we implement employee search using an async service. In this sample app, we use a mock in-memory service (defined in data.js) that uses promises so you can easily replace the implementation with Ajax calls. We keep track of the search key and the list of employees in the HomePage state.

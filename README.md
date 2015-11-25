@@ -32,7 +32,7 @@ Based on this diagram, the component hierarchy for the Employee Directory app lo
 
 “App” is the application container that will transition pages in and out of the UI. Only one page is displayed at any given time.
 
-In this article, we will build the application going through several iterations, from a simple static prototype to the final product. The source code for the application, including the different iterations and a Cordova version, is available in [this repository](https://github.com/Bondifrench/mithril-employee-directory).
+In this article, we will build the application going through several iterations, from a simple static prototype to the final product. 
 
 ## Iteration 1: Static Version
 
@@ -42,9 +42,9 @@ In this first version, we create and render the HomePage component with some har
 
 **Code Highlights:**
 
-We create 3 components for our App: a `Header`, a `SearchBar`, and an `EmployeeList`.
+We create 3 components for within the `HomePage`: a `Header`, a `SearchBar`, and an `EmployeeList`.
 
-Creating components is easy: you create a JavaScript object with a key called 'view': 
+In Mithril, creating components is easy: you create a JavaScript object with a key called 'view': 
 
 ```Javascript
 var MyComponent = {
@@ -73,7 +73,7 @@ Using a component can be done in two ways:
 
 ## Iteration 2: Data Flow
 
-In this second version, we define an array of employees in the HomePage component, and we make the data flow down the component hierarchy to EmployeeList and EmployeeListItem. In this version, the list of employees is hardcoded: we’ll work with dynamic data in iteration 4.
+In this second version, we define an array of `employees`, and we make the data flow down the component hierarchy to EmployeeList and EmployeeListItem. In this version, the list of employees is hardcoded: we’ll work with dynamic data in iteration 4.
 
 [View source](https://github.com/Bondifrench/mithril-employee-directory/blob/master/iteration2/js/app.js) | [Run it](http://bondifrench.github.io/mithril-employee-directory/iteration2/)
 
@@ -81,10 +81,12 @@ In this second version, we define an array of employees in the HomePage componen
 
 In Mithril, you can add a plain javascript object to your custom component tags to pass properties to the component instance.
 
+```Javascript
 m.component(EmployeeList, {employees: employees})
+```
 
-Properties passed by the parent are available in this.props in the child. For example EmployeeList can access the list of employees provided by HomePage in this.props.employees.
-In a list component (like EmployeeList), it’s a common pattern to programmatically create an array of child components (like EmployeeListItem) and include that array in the Mithril description of the component.
+Properties passed by the parent are available in the child through the second argument of the view, called here **args**. For example `EmployeeList` can access the list of employees provided by `HomePage` in **args.employees**.
+In a list component (like `EmployeeList`), it’s a common pattern to programmatically create an array of child components (like EmployeeListItem) and include that array in the Mithril description of the component.
 
 ```Javascript
 var EmployeeList = {
@@ -99,16 +101,15 @@ var EmployeeList = {
 	}
 }
 ```
-The key attribute (like in EmployeeListItem above) is used to uniquely identify an instance of a component (useful in the diff process).
+The **key** attribute (like in EmployeeListItem above) is used to uniquely identify an instance of a component (useful in the diff process).
 
-Unlike React, which can have some surprising [behaviours]http://www.bennadel.com/blog/2880-a-quick-look-at-rendering-white-space-using-jsx-in-reactjs.htm) when translating JSX to HTML, there is no whitespace created by a `m()` function so if you render the following
+*Side note:* Unlike React, which can have some surprising [behaviours](http://www.bennadel.com/blog/2880-a-quick-look-at-rendering-white-space-using-jsx-in-reactjs.htm) when translating JSX to HTML, there is no whitespace created by a `m()` function so in `EmployeeListItem` if you render the following: 
 ```Javascript
 m('span', args.employee.firstName),
 m('span', args.employee.lastName)
 ```
 Unless you have inserted a whitespace in your strings, the first name won't be separated from the last name. 
-Some might prefer with, some without, I prefer without because I like the concept of pure functions, m() is to create a virtual DOM element, with no side effects
-
+Some might prefer with, some without, I prefer without because I like the concept of pure functions, `m()` is here to create a virtual DOM element, with no unexpected side effects.
 
 ## Iteration 3: Inverse Data Flow
 

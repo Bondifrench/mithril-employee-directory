@@ -25,7 +25,7 @@ var EmployeeListItem = {
 
 var EmployeeList = {
 	view: function(ctrl, args) {
-		var items = args.employees.map(function(employee) {
+		var items = args.employees.map(function(employee, id) {
 			return m.component(EmployeeListItem, {
 				key: employee.id,
 				employee: employee
@@ -35,18 +35,19 @@ var EmployeeList = {
 	}
 }
 
+var employees = [{
+	firstName: 'Leo ',
+	lastName: 'Horie '
+}, {
+	firstName: 'Barney ',
+	lastName: 'Carroll '
+}, {
+	firstName: 'Stephan ',
+	lastName: 'Hoyer '
+}];
+
 var HomePage = {
 	view: function() {
-		var employees = [{
-			firstName: 'Leo ',
-			lastName: 'Horie '
-		}, {
-			firstName: 'Barney ',
-			lastName: 'Carroll '
-		}, {
-			firstName: 'Stephan ',
-			lastName: 'Hoyer '
-		}];
 		return m('div', [
 			m.component(Header, {
 				text: 'Employee Directory'

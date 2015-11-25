@@ -13,8 +13,24 @@ The focus of this tutorial will be to highlight the similarities and differences
 
 ## Introduction
 
-As [@ccoenraets](https://twitter.com/ccoenraets) says, there is nothing like building an app to get familiar with a new language or framework. “App” is the application container that will transition pages in and out of the UI. Only one page is displayed at any given time.
+As [@ccoenraets](https://twitter.com/ccoenraets) says, there is nothing like building an app to get familiar with a new language or framework. 
 
+A similar logic to React can be used to architecture the App. We can start with a mockup of the UI and break it down into a component hierarchy. 
+![mock up](https://github.com/Bondifrench/mithril-employee-directory/blob/master/uimockscript.png)
+
+Based on this diagram, the component hierarchy for the Employee Directory app looks like this: 
+
+- App
+	- HomePage
+		- Header
+		- SearchBar
+		- EmployeeList
+			- EmployeeListItem
+	- EmployeePage
+		- Header
+		- EmployeeDetails
+
+“App” is the application container that will transition pages in and out of the UI. Only one page is displayed at any given time.
 
 In this article, we will build the application going through several iterations, from a simple static prototype to the final product. The source code for the application, including the different iterations and a Cordova version, is available in [this repository](https://github.com/Bondifrench/mithril-employee-directory).
 
@@ -51,9 +67,9 @@ Using a component can be done in two ways:
 - either by referring to it directly if it is a static component, like `SearchBar` or `EmployeeList` in the source code of Iteration 1
 - or with the `m.component()` function, like in the following example: `m.component(Header, {text: 'Employee Directory'})`. Its first argument is the name of the component, the second is a plain javascript object which contains what you want to pass down.
 
-Side Note: If you don't like the syntax of `m('input[type=search]')` you can use [MSX](https://github.com/insin/msx) (which is similar to [JSX](https://facebook.github.io/jsx/) in React).
+*Side Note:* If you don't like the syntax of `m('input[type=search]')` you can use [MSX](https://github.com/insin/msx) (which is similar to [JSX](https://facebook.github.io/jsx/) in React).
 
-Another side note: the default of `m('')` is a div, so you can ommit `div` if you want.
+*Another side note:* the default of `m('')` is a div, so you can ommit `div` if you want.
 
 ## Iteration 2: Data Flow
 

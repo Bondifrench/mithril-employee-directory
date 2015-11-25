@@ -12,6 +12,24 @@ var SearchBar = {
 			ctrl.searchKey(event.target.value);
 			args.searchHandler(event.target.value);
 		};
+
+		// Using factory function:
+		// var searchKey = m.prop('');
+		// function searchHandler(e) {
+		// 	searchKey(e.target.value);
+		// 	args.searchHandler(e.target.value);
+		// }
+		// return {
+		// 	searchKey: m.prop(''),
+		// 	searchHandler: searchHandler
+		// }
+
+		// Using `this`:
+		// this.searchKey = m.prop('');
+		// this.searchHandler = function (e) {
+		// 	this.searchKey(e.target.value);
+		// 	args.searchHandler(e.target.value);
+		// }.bind(this)
 	},
 	view: function(ctrl) {
 		return m('input[type=search]', {
@@ -46,30 +64,32 @@ var EmployeeList = {
 	}
 }
 
+var employees = [{
+	firstName: 'Leo ',
+	lastName: 'Horie '
+}, {
+	firstName: 'Barney ',
+	lastName: 'Carroll '
+}, {
+	firstName: 'Stephan ',
+	lastName: 'Hoyer '
+}];
+
 var HomePage = {
-	controller: function () {
+	controller: function() {
 		var ctrl = this;
-		ctrl.searchHandler = function (key) {
+		ctrl.searchHandler = function(key) {
 			alert('Search key:' + key);
 		}
-
 	},
 	view: function(ctrl) {
-		var employees = [{
-			firstName: 'Leo ',
-			lastName: 'Horie '
-		}, {
-			firstName: 'Barney ',
-			lastName: 'Carroll '
-		}, {
-			firstName: 'Stephan ',
-			lastName: 'Hoyer '
-		}];
 		return m('div', [
 			m.component(Header, {
 				text: 'Employee Directory'
 			}),
-			m.component(SearchBar, {searchHandler: ctrl.searchHandler}),
+			m.component(SearchBar, {
+				searchHandler: ctrl.searchHandler
+			}),
 			m.component(EmployeeList, {
 				employees: employees
 			})

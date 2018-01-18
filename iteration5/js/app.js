@@ -57,7 +57,6 @@ var HomePage = {
 				ctrl.employees(result);
 			})
 		}
-
 	},
 	view: function(ctrl, args) {
 		return m('div', [

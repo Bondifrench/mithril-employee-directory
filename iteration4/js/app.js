@@ -9,8 +9,9 @@ var SearchBar = {
 		var ctrl = this;
 		ctrl.searchKey = m.prop('');
 		ctrl.searchHandler = function(event) {
-			ctrl.searchKey(event.target.value);
-			args.searchHandler(event.target.value);
+			var searchKey = event.target.value; 
+			ctrl.searchKey(searchKey);
+			args.searchHandler(searchKey);
 		};
 	},
 	view: function(ctrl) {
@@ -25,6 +26,7 @@ var EmployeeListItem = {
 	view: function(ctrl, args) {
 		return m('li', [
 			m('a', {
+				config: m.route,
 				href: '#employees/' + args.employee.id
 			}, [
 				m('span', args.employee.firstName),

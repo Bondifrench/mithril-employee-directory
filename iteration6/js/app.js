@@ -2,6 +2,7 @@ var Header = {
 	view: function(ctrl, args) {
 		return m('header.bar.bar-nav', [
 			m('a', {
+				// config: m.route,
 				href: window.location.pathname,
 				class: 'icon icon-left-nav pull-left' + (args.back ? '' : ' hidden')
 			}),
@@ -35,6 +36,7 @@ var EmployeeListItem = {
 	view: function(ctrl, args) {
 		return m('li.table-view-cell.media', [
 			m('a', {
+				config:m.route,
 				href: window.location.href + 'employees/' + args.employee.id
 			}, [
 				m('img.media-object.small.pull-left', {
@@ -155,6 +157,7 @@ var EmployeePage = {
 	}
 }
 
+m.route.mode = "hash";
 m.route(document.body, '/', {
 	'/': m.component(HomePage, {
 		service: employeeService

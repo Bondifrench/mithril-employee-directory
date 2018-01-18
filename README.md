@@ -158,14 +158,17 @@ In this version, we implement employee search using an async service. In this sa
 
 **Code Highlights:**
 In React: The state (this.state) is private to the component and is changed using this.setState().
-In Mithril: 
+
+In Mithril: The controller is private to the component and is accessed through the `ctrl` parameter in the view.
+
 
 The UI is automatically updated when the user types a new value in SearchBar. This is because when the state of a React component is changed, the component automatically re-renders itself (by executing its `render()` function in React, the `view` function in Mithril).
 
 In React: getInitialState() executes once during the component lifecycle and is used to set up the initial state of the component.
-Im Mithril: 
 
-###Iteration 5: Routing
+In Mithril: Controller gets initiated once, when it is created.
+
+## Iteration 5: Routing
 
 In this version, we add an employee details page. Because the application now has more than one view, we add a simple view routing mechanism.
 
@@ -189,7 +192,7 @@ In this version, we use the Ratchet CSS library to provide the app with a mobile
 **Code Highlights:**
 
 In React: Notice the use of className instead of class
-In Mithril: When having static Notice how we can easily 
+In Mithril: When having static classes, notice how we can easily add them thanks to CSS selectors. 
 
 ## Iteration 7: Maintaining State
 
@@ -212,7 +215,7 @@ Checkout also the modular implementation of Material Design for Mithril develope
 
 Coming soon!
 
-##Additional resources:
+## Additional resources:
 
 My other tutorial using Mithril: [Mithril trader](https://github.com/Bondifrench/mithril-trader)  
 My Sublime package for easy autocompletion of most Mithril methods in Sublime Text: [Mithrilizer](https://github.com/Bondifrench/Mithrilizer)

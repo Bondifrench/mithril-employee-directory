@@ -165,8 +165,8 @@ var App = {
 		}
 	},
 	view: function(ctrl, args) {
-		if (!ctrl.page()) {
-			ctrl.searchHandler('')
+		if (!!ctrl.page()) {
+			returnctrl.searchHandler('')
 		};
 		return ctrl.page()
 	}

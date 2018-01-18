@@ -1,5 +1,7 @@
 # Sample Mobile Application with Mithril and Cordova
 
+**Note** This tutorial was done with a previous version of Mithril v0.2.0, current version is v1.1.6
+
 [Mithril](mithril.js.org) is my favorite Javascript framework. It has a simple API, it's lightweight, it's very fast and it's just Javascript.
 I believe it deserves a few more tutorials and sample applications to illustrate how great it is.
 
